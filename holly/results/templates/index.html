@@ -1,0 +1,86 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>FindU Home</h1>
+
+  
+  <form action="{% url 'index' %}" method="get">
+      <label for="loc_drop">Select Location: </label>
+    <select name="loc_drop">
+        <option value='All'> All </option>
+        {%if loc_list%}
+          {%for uni in loc_list %}
+          <option value="{{uni}}">{{uni}} </option>
+          {% endfor %}
+  </select>
+  {% else %}
+    <p></p>
+  {% endif %}
+ <br>
+  <input type="checkbox" name="checks[]" value="scores_research" > Research <br>
+  <input type="checkbox" name="checks[]" value="scores_citations"> Citations <br>
+  <input type="checkbox" name="checks[]" value="scores_teaching"> Teaching<br>
+
+
+<input type="submit" name="loc_button" value="Filter" />
+  </form>
+
+<table style="width:100%">
+  <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Research</th>
+  </tr>
+   {%if uni_list%}
+      {%for uni in uni_list %}
+      <tr>
+          <td>{{uni.rank}} </td>
+          <td>{{uni.name}} </td>
+          <td>{{uni.location}} </td>
+          <td>{{uni.scores_research}} </td>
+          {% endfor %}
+      </tr>
+      {% else %}
+      <tr></tr>
+   {% endif %}
+</table>
+
+<table style="width:100%">
+  <tr>
+  {%for value in uni_list.1 %}
+  <th> {{value}} </th>
+  {% endfor %}
+  </tr>
+   {%if uni_list%}
+      {%for uni in uni_list %}
+      <tr>
+          <td>{{uni.rank}} </td>
+          <td>{{uni.s_rank}} </td>
+          <td>{{uni.s_rank_country}} </td>
+          <td>{{uni.name}} </td>
+          <td>{{uni.location}} </td>
+          <td>{{uni.scores_overall}} </td>
+          <td>{{uni.scores_citations}} </td>
+          <td>{{uni.scores_industry_income}} </td>
+          <td>{{uni.scores_research}} </td>
+          <td>{{uni.scores_teaching}} </td>
+          <td>{{uni.stats_student_staff_ratio}} </td>
+          <td>{{uni.stats_pc_intl_students}} </td>
+          <td>{{uni.stats_number_students}} </td>
+          <td>{{uni.stats_female_male_ratio}} </td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr></tr>
+   {% endif %}
+</table>
+
+<table style="width:100%">
+  {% for k, v in Uni.items %}
+  <td>  {{ k.v }} </td>
+  {% endfor %}
+</table>
+
+  {% endblock %}
+
