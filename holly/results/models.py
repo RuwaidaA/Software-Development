@@ -6,6 +6,15 @@ from django.db import models
   
 # Create your models here.
 
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    quality_of_life_index = models.FloatField()
+    safety_index = models.FloatField()
+    climate_index =models.FloatField()
+    cost_of_living_index = models.FloatField()
+    pass
+
 class Uni(models.Model):
     name = models.CharField(max_length=100)
     rank = models.IntegerField()
@@ -23,7 +32,11 @@ class Uni(models.Model):
     s_rank = models.IntegerField(null=True)
     s_rank_country = models.IntegerField(null=True)
     new_rank = models.IntegerField(default=0, null=True)
-
+    city = models.CharField(max_length=100, null=True)
+    quality_of_life_index = models.FloatField()
+    safety_index = models.FloatField()
+    climate_index =models.FloatField()
+    cost_of_living_index = models.FloatField()
 
     def __iter__(self):
         for field in self._meta.fields:
@@ -48,6 +61,13 @@ class Uni_cs(models.Model):
     stats_female_male_ratio = models.FloatField()
     s_rank = models.IntegerField()
     s_rank_country = models.IntegerField()
+    new_rank = models.IntegerField(default=0, null=True)
+    city = models.CharField(max_length=100, null=True)
+    quality_of_life_index = models.FloatField()
+    safety_index = models.FloatField()
+    climate_index =models.FloatField()
+    cost_of_living_index = models.FloatField()
+
 
 
     def __iter__(self):
@@ -73,6 +93,13 @@ class Uni_eng(models.Model):
     stats_female_male_ratio = models.FloatField()
     s_rank = models.IntegerField()
     s_rank_country = models.IntegerField()
+    new_rank = models.IntegerField(default=0, null=True)
+    city = models.CharField(max_length=100, null=True)
+    quality_of_life_index = models.FloatField()
+    safety_index = models.FloatField()
+    climate_index =models.FloatField()
+    cost_of_living_index = models.FloatField()
+
 
 
     def __iter__(self):
@@ -81,17 +108,5 @@ class Uni_eng(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-class City(models.Model):
-    name = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    language =  models.CharField(max_length=100)
-    cost_of_living = models.IntegerField()
-    low_temp = models.IntegerField()
-    high_temp = models.IntegerField()
-    annual_rainfall = models.FloatField()
-    cost_of_rent = models.IntegerField()
 
 

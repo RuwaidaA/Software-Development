@@ -34,10 +34,10 @@
         <td>
             <input type="checkbox" name="checks[]" value="scores_citations"> Citations
         </td>
-        <td>
+        <td> 
             <div class="slidecontainer">
             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
-            </div>
+            </div> 
         </td>
     </tr>
     <tr>
@@ -80,6 +80,86 @@
              </div>
         </td>
     </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_student_staff_ratio"> Ratio of students to staff
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_pc_intl_students"> Percentage of international students
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_number_students"> Number of students
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_female_male_ratio"> Male to female ratio
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="quality_of_life_index"> Quality of life
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="saftey_index"> Saftey
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="cost_of_living_index"> Cost of living
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="climate_index"> Climate
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
     </table>
 <input type="submit" name="loc_button" value="Filter" />
   </form>
@@ -87,11 +167,11 @@
 <table style="width:100%">
     <thead style="display:table-header-group">
   <tr>
-  {%for value in uni_list.0 %}
+    {%for value in uni_list.0 %} 
   <th> {{value}} </th>
-  {% endfor %}
+   {% endfor %} 
   </tr>
-   {%if uni_list%}
+  {%if uni_list%}
       {%for uni in uni_list %}
       <tr>
           <td>{{uni.rank}} </td>
@@ -100,6 +180,7 @@
           <td>{{uni.s_rank_country}} </td>
           <td>{{uni.name}} </td>
           <td>{{uni.location}} </td>
+          <td>{{uni.city}} </td>
           <td>{{uni.scores_overall}} </td>
           <td>{{uni.scores_citations}} </td>
           <td>{{uni.scores_industry_income}} </td>
@@ -109,6 +190,10 @@
           <td>{{uni.stats_pc_intl_students}} </td>
           <td>{{uni.stats_number_students}} </td>
           <td>{{uni.stats_female_male_ratio}} </td>
+          <td>{{uni.quality_of_life_index}} </td>
+          <td>{{uni.saftey_index}} </td>
+          <td>{{uni.cost_of_living_index}} </td>
+          <td>{{uni.climate_index}} </td>
       </tr>
       {% endfor %}
       {% else %}
