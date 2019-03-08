@@ -5,7 +5,10 @@ Instructions
 * run: python manage.py makemigrations
 * run: python manage.py migrate
 * check for db in mongo compass
-* run python insert-uni.py
+* cd DataInserts
+* run ./set_upDB.sh
+* if this fails you may need to drop the old table - python delete-unis.py
+* cd ..
 * check for data in mongo compass
 * run python manage.py runserver
-* open in browser
+* open link in browser
