@@ -1,43 +1,96 @@
+import numpy
 from django.shortcuts import render
-
+from django.db.models import Max
 # Create your views here.
-
+from django.db.models import Case, When
 
 from results.models import Uni
+from results.models import Uni_cs
+from results.models import Uni_eng
+from results.models import City
+
+def gen_rank(fields, scores, Subject):
+    score_val=[]
+    rank_val=[]
+    max_val=[]
+    scores = [x for x in scores if x != '0']
+    q = Subject.objects.all().values_list(*fields)
+    for i in range(0, len(fields)):
+        max_val.append(get_max(q, fields[i]))
+    for e in Subject.objects.values_list(*fields):
+        val=0
+        for i in range(0, len(fields)):
+            norm = make_pc(float(e[i]),float(max_val[i]))
+            val += float(scores[i]) * float(norm)
+        score_val.append(val)
+    count=0
+    rank_val = get_rank_val(score_val)
+    for e in Subject.objects.all():
+        e.new_rank = rank_val[count]
+        e.save(update_fields=['new_rank'])
+        count+=1
+    return
+
+def get_rank_val(score_val):
+    rank_val = len(score_val) - numpy.argsort(numpy.argsort(numpy.array(score_val)))
+    return rank_val.tolist()
+
+def get_max(query, field):
+    return list(query.aggregate(Max(field)).values())[0]
+def make_pc(value, max_val):
+    return float(value*100/max_val)
 
 def index(request, template_name='index.html'):
     """View function for home page of site."""
 
     context_dict = {}
     model = Uni
+    column_headers = ['rank', 'name', 'location', 'city', 'scores_overall']
+    uni_main = Uni.objects.values(*column_headers)
+    uni_all = Uni.objects.all()
+
+    # subject filter
+    if request.GET.get('sub_drop'):
+        subject_filter = request.GET.get('sub_drop')
+        if subject_filter == 'All':
+            uni_main = Uni.objects.values(*column_headers)
+
+        elif subject_filter == 'Computer Science':
+            model = Uni_cs
+            uni_main = Uni_cs.objects.values(*column_headers)
+        elif subject_filter == 'Engineering':
+            model = Uni_eng
+            uni_main = Uni_eng.objects.values(*column_headers)
+    else:
+        uni_main = Uni.objects.values(*column_headers)
+
 
     # Locations filter
     if request.GET.get('loc_drop'):
         location_filter = request.GET.get('loc_drop')
         if location_filter == 'All':
-            listings = Uni.objects.values('rank', 'name', 'location')
+            listings = uni_main
 
         else:
-            listings = Uni.objects.filter(location=location_filter).values('rank', 'name', 'location')
+            listings = uni_main.filter(location=location_filter)
     else:
-        listings = Uni.objects.values('rank', 'name', 'location')
+        listings = uni_main
 
-    
-
-    columns_list = ['scores_research', 'scores_citations', 'scores_teaching']
-
-    
+    # advanced search
+    qs = listings
     if request.GET.getlist('checks[]'):
         checkvar = request.GET.getlist('checks[]')
-        for i in range (0,len(checkvar)-1):
-            print(checkvar[i])
-            qs1 = Uni.objects.values(checkvar[i])
-            qs2 = Uni.objects.values(checkvar[i+1])
-            qs1.union(qs2, qs1, all=True)
-            print(qs1)
+        if len(checkvar) != 0:
+            values = column_headers + checkvar
+            qs = listings.values(*values)
+            if request.GET.getlist('v_scores[]'):
+                scorevar = request.GET.getlist('v_scores[]')
+                gen_rank(checkvar,scorevar,model)
+                column_headers[0] = 'new_rank'
+                values = column_headers + checkvar
+                qs = listings.values(*values).order_by('new_rank')
+    listings = qs
 
-    print(listings)
-    test = Uni.objects.values('rank', 'name', 'location','scores_teaching')
 
     context_dict = {'uni_list': listings, 'loc_list' : Uni.objects.order_by('location').values_list('location', flat=True).distinct()}
 
@@ -45,13 +98,4 @@ def index(request, template_name='index.html'):
 #    return render(request, 'index.html', context=context)
     return render(request, template_name, context_dict)
 
-
-from django.views import generic
-
-#class UniListView(generic.ListView):
-
-#    model = Uni
-#    context_object_name = 'uni_list'   # your own name for the list as a template variable
-#    queryset = Uni.objects.filter(name__icontains='test')[:5] # Get 5 books containing the title war
-#    template_name = 'unis/uni_template_list.html'  # Specify your own template name/location
 

@@ -3,63 +3,184 @@
 {% block content %}
   <h1>FindU Home</h1>
 
-  
+  <b> Basic Search </b>
+  <br>
   <form action="{% url 'index' %}" method="get">
       <label for="loc_drop">Select Location: </label>
     <select name="loc_drop">
         <option value='All'> All </option>
         {%if loc_list%}
-          {%for uni in loc_list %}
-          <option value="{{uni}}">{{uni}} </option>
+          {%for item in loc_list %}
+          <option value="{{item}}">{{item}} </option>
           {% endfor %}
   </select>
   {% else %}
     <p></p>
   {% endif %}
- <br>
-  <input type="checkbox" name="checks[]" value="scores_research" > Research <br>
-  <input type="checkbox" name="checks[]" value="scores_citations"> Citations <br>
-  <input type="checkbox" name="checks[]" value="scores_teaching"> Teaching<br>
-
-
+  <form action="{% url 'index' %}" method="get">
+      <label for="sub_drop">Select Subject: </label>
+    <select name="sub_drop">
+        <option value='All'> All </option>
+          <option value="Computer Science">Computer Science </option>
+          <option value="Engineering">Engineering </option>
+  </select>
+<input type="submit" name="loc_button" value="Filter" />
+<br>
+ <b> Advanced Search </b>
+  <br>
+    <table style="width:70%">
+    <thead style="display:table-header-group">
+    <tr>
+        <td>
+            <input type="checkbox" name="checks[]" value="scores_citations"> Citations
+        </td>
+        <td> 
+            <div class="slidecontainer">
+            <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+            </div> 
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="checks[]" value="scores_industry_income"> Industry Income
+        </td>
+        <td>
+            <div class="slidecontainer">
+            <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="checks[]" value="scores_international_outlook"> International Outlook 
+        </td>
+        <td>
+            <div class="slidecontainer">
+            <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="checks[]" value="scores_research" > Research 
+        </td>
+        <td>
+            <div class="slidecontainer">
+            <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="scores_teaching"> Teaching
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_student_staff_ratio"> Ratio of students to staff
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_pc_intl_students"> Percentage of international students
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_number_students"> Number of students
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="stats_female_male_ratio"> Male to female ratio
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="quality_of_life_index"> Quality of life
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+      <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="saftey_index"> Saftey
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="cost_of_living_index"> Cost of living
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+     <tr>
+        <td>
+             <input type="checkbox" name="checks[]" value="climate_index"> Climate
+        </td>
+        <td>
+             <div class="slidecontainer">
+             <input type="range" min="0" max="10" value="0" class="slider" id="myRange" name="v_scores[]">
+             </div>
+        </td>
+    </tr>
+    </table>
 <input type="submit" name="loc_button" value="Filter" />
   </form>
 
 <table style="width:100%">
+    <thead style="display:table-header-group">
   <tr>
-    <th>Rank</th>
-    <th>Name</th>
-    <th>Location</th>
-    <th>Research</th>
-  </tr>
-   {%if uni_list%}
-      {%for uni in uni_list %}
-      <tr>
-          <td>{{uni.rank}} </td>
-          <td>{{uni.name}} </td>
-          <td>{{uni.location}} </td>
-          <td>{{uni.scores_research}} </td>
-          {% endfor %}
-      </tr>
-      {% else %}
-      <tr></tr>
-   {% endif %}
-</table>
-
-<table style="width:100%">
-  <tr>
-  {%for value in uni_list.1 %}
+    {%for value in uni_list.0 %} 
   <th> {{value}} </th>
-  {% endfor %}
+   {% endfor %} 
   </tr>
-   {%if uni_list%}
+  {%if uni_list%}
       {%for uni in uni_list %}
       <tr>
           <td>{{uni.rank}} </td>
+          <td>{{uni.new_rank}} </td>
           <td>{{uni.s_rank}} </td>
           <td>{{uni.s_rank_country}} </td>
           <td>{{uni.name}} </td>
           <td>{{uni.location}} </td>
+          <td>{{uni.city}} </td>
           <td>{{uni.scores_overall}} </td>
           <td>{{uni.scores_citations}} </td>
           <td>{{uni.scores_industry_income}} </td>
@@ -69,17 +190,15 @@
           <td>{{uni.stats_pc_intl_students}} </td>
           <td>{{uni.stats_number_students}} </td>
           <td>{{uni.stats_female_male_ratio}} </td>
+          <td>{{uni.quality_of_life_index}} </td>
+          <td>{{uni.saftey_index}} </td>
+          <td>{{uni.cost_of_living_index}} </td>
+          <td>{{uni.climate_index}} </td>
       </tr>
       {% endfor %}
       {% else %}
       <tr></tr>
    {% endif %}
-</table>
-
-<table style="width:100%">
-  {% for k, v in Uni.items %}
-  <td>  {{ k.v }} </td>
-  {% endfor %}
 </table>
 
   {% endblock %}
