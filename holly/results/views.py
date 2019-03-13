@@ -9,6 +9,8 @@ from results.models import Uni_cs
 from results.models import Uni_eng
 from results.models import City
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 def gen_rank(fields, scores, Subject):
     score_val=[]
     rank_val=[]
@@ -47,8 +49,7 @@ def index(request, template_name='index.html'):
     model = Uni
     column_headers = ['rank', 'name', 'location', 'city', 'scores_overall']
     uni_main = Uni.objects.values(*column_headers)
-    uni_all = Uni.objects.all()
-
+    
     # subject filter
     if request.GET.get('sub_drop'):
         subject_filter = request.GET.get('sub_drop')
@@ -90,12 +91,21 @@ def index(request, template_name='index.html'):
                 values = column_headers + checkvar
                 qs = listings.values(*values).order_by('new_rank')
     listings = qs
+    
+    paginator = Paginator(listings, 10)
+    page = request.GET.get('page')
+    try:
+        uni_list = paginator.page(page) 
+    except PageNotAnInteger: 
+        uni_list = paginator.page(1) 
+    except EmptyPage: 
+        uni_list = paginator.page(paginator.num_pages)
 
-
-    context_dict = {'uni_list': listings, 'loc_list' : Uni.objects.order_by('location').values_list('location', flat=True).distinct()}
+    context_dict = {'uni_list': uni_list, 'loc_list' : Uni.objects.order_by('location').values_list('location', flat=True).distinct()}
 
     # Render the HTML template index.html with the data in the context variable
 #    return render(request, 'index.html', context=context)
     return render(request, template_name, context_dict)
 
-
+def about(request):
+    return render(request, 'about.html', {})
