@@ -5696,3 +5696,44 @@ h2.typoh2{
 }
 
 /*--//responsive-design--*/
+
+
+.tick-list {
+    list-style-type: none !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+}
+.tick-list li {
+    position: relative;
+    font-size: 1.1em;
+    color: #031c4d;
+    line-height: 34px;
+    padding: 10px 0 6px 40px;
+}
+.container h4 {
+	font-size: 1.5em;
+}
+.tick-list li:before {
+    display: block;
+    content: "\2713";
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    color: #00a5d6;
+    display: inline-block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 30px;
+    line-height: 1;
+    font-family: Material-Design-Iconic-Font;
+    font-size: 30px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
