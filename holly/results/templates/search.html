@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="utf-8">
+	<title> FindU title</title>
+	<link rel='stylesheet' href='CSS/stylesheet.css'>
+	<meta http-equiv="Content-Language" content="en" />
+	<meta name="keywords" content="Find university, Academic Ranking of World Universities"/>
+	<meta name="description" content="University researching tool"/>
+	<title>FindU Universities Searching Tool</title>
+	<link rel="icon" href="img/ourlogo" type="image/x-icon"/>
+	<link type="text/css" rel="stylesheet" href="CSS/layout.css" />
+	<link type="text/css" rel="stylesheet" href="CSS/colors.css" />
+	<link type="text/css" rel="stylesheet" href="CSS/font.css" />
+	<link type="text/css" rel="stylesheet" href="CSS/button.css" />
+</head>
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>FindU Home</h1>
+
+  
+  <form action="{% url 'index' %}" method="get">
+      <label for="loc_drop">Select Location: </label>
+    <select name="loc_drop">
+        <option value='All'> All </option>
+        {%if loc_list%}
+          {%for uni in loc_list %}
+          <option value="{{uni}}">{{uni}} </option>
+          {% endfor %}
+  </select>
+  {% else %}
+    <p></p>
+  {% endif %}
+ <br>
+  <input type="checkbox" name="checks[]" value="scores_research" > Research <br>
+  <input type="checkbox" name="checks[]" value="scores_citations"> Citations <br>
+  <input type="checkbox" name="checks[]" value="scores_teaching"> Teaching<br>
+
+
+<input type="submit" name="loc_button" value="Filter" />
+  </form>
+
+<table style="width:100%">
+  <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Research</th>
+  </tr>
+   {%if uni_list%}
+      {%for uni in uni_list %}
+      <tr>
+          <td>{{uni.rank}} </td>
+          <td>{{uni.name}} </td>
+          <td>{{uni.location}} </td>
+          <td>{{uni.scores_research}} </td>
+          {% endfor %}
+      </tr>
+      {% else %}
+      <tr></tr>
+   {% endif %}
+</table>
+
+  {% endblock %}
+
