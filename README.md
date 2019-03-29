@@ -10,14 +10,19 @@
 4- In CMD: gem install mongo
 
 5- Install django and djongo: 
+
 pip install django 
+
 pip install djongo
 
 6- Install modules:
 
 pip install djangorestframework 
+
 pip install requests 
+
 pip install beautifulsoup4
+
 pip install numpy
 
 7- Open new window in your command prompt and type and keep the window open: 
@@ -28,16 +33,22 @@ pip install numpy
 9- In differnt window of your command prompt, cd to the project directory\DataInserts folder and then run:
 
 python insert-unis.py 
+
 python insert-cities.py
+
 python insert-city_data.py
+
 
 10- Refresh MongoDB Compass
 
 11- cd ..
 
 12- run migrations and run the server:
+
 python manage.py makemigrations 
+
 python manage.py migrate 
+
 python manage.py runserver
 
 13- Copy the following link and paste it in your browser: http://127.0.0.1:8000/
