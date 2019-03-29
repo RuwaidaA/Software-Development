@@ -15,13 +15,19 @@ https://www.guru99.com/installation-configuration-mongodb.html
 gem install mongo
 
 5- Install django:
+
 pip install django
+
 pip install djongo
 
 6- Install modules
+
 pip install djangorestframework
+
 pip install requests
+
 pip install beautifulsoup4
+
 pip install numpy
 
 
@@ -29,12 +35,15 @@ pip install numpy
 "C:\Program Files\MongoDB\Server\4.0\bin\mongo.exe"
 
 8- Open MongoDB Compass connect then, Create Database:
+
 Database Name: findu-db
+
 Collection Name: results_uni
 
 9- In differnt window of your command prompt, cd to the project directory\DataInserts folder and then run:
 
 python insert-unis.py
+
 python insert-cities.py
 
 python insert-city_data.py
@@ -46,7 +55,9 @@ python insert-city_data.py
 
 12- 
 python manage.py makemigrations
+
 python manage.py migrate
+
 python manage.py runserver
 
 13- Copy the followig link and paste it in your browser:
